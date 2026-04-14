@@ -1,137 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2GD - Realidade Aumentada</title>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow: hidden;
-        }
-        model-viewer {
-            width: 100%;
-            height: 100vh;
-        }
-        #header {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 1001;
-            color: white;
-            text-align: center;
-        }
-        #title {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 0;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-        }
-        #participants {
-            font-size: 14px;
-            margin: 4px 0 0 0;
-            opacity: 0.9;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-        }
-        #ar-button {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 20px 50px;
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #007AFF, #0056CC);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,122,255,0.4);
-            cursor: pointer;
-            z-index: 1000;
-            min-width: 280px;
-            transition: all 0.3s ease;
-        }
-        #ar-button:hover, #ar-button:active {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 12px 25px rgba(0,122,255,0.6);
-        }
-        #message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 20px;
-            text-align: center;
-            z-index: 999;
-            max-width: 90%;
-        }
-        #senai-logo {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: auto;
-            z-index: 1001;
-            opacity: 0.8;
-        }
-        .hidden {
-            display: none !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2GD - Realidade Aumentada</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+      color: white;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100vh;
+      background: #000;
+    }
+
+    #header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      z-index: 1001;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    #title {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
+    #participants {
+      font-size: 14px;
+      margin: 4px 0 0 0;
+      opacity: 0.9;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    #ar-button {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px 50px;
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #007AFF, #0056CC);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,122,255,0.4);
+      cursor: pointer;
+      z-index: 1000;
+      min-width: 280px;
+      transition: all 0.3s ease;
+    }
+
+    #ar-button:hover,
+    #ar-button:active {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,122,255,0.6);
+    }
+
+    #message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      z-index: 999;
+      max-width: 90%;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      padding: 16px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 12px;
+    }
+
+    #senai-logo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: auto;
+      z-index: 1001;
+      opacity: 0.85;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
-    <!-- Título e Participantes -->
-    <div id="header">
-        <h1 id="title">2GD - Realidade aumentada </h1>
-        <div id="participants">
-            Douglas Oliveira • Gabriel Guimarães • Gabriel Costa
-        </div>
+  <div id="header">
+    <h1 id="title">2GD - Realidade Aumentada</h1>
+    <div id="participants">
+      Douglas Oliveira • Gabriel Guimarães • Gabriel Costa
     </div>
+  </div>
 
-    <model-viewer
-        id="model"
-        src="object.usdz"
-        ios-src="object.usdz"
-        ar
-        ar-modes="scene-viewer quick-look webxr"
-        camera-controls
-        auto-rotate
-        style="width:100%; height:100vh;">
-    </model-viewer>
+  <model-viewer
+    id="model"
+    src="object.glb"
+    ios-src="object.usdz"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    exposure="1"
+    alt="Modelo 3D da máquina">
+  </model-viewer>
 
-    <div id="message">
-        Clique para abrir modelo 3D
-    </div>
+  <div id="message">
+    Carregando modelo 3D...
+  </div>
 
-    <button id="ar-button">
-        📱 Ver em AR
-    </button>
+  <button id="ar-button">
+    📱 Ver em AR
+  </button>
 
-    <!-- Logo Senai -->
-    <img id="senai-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Senai_logo.svg/120px-Senai_logo.svg.png" alt="Senai">
+  <img
+    id="senai-logo"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Senai_logo.svg/120px-Senai_logo.svg.png"
+    alt="Senai">
 
-    <script>
-        const model = document.querySelector('#model');
-        const arButton = document.querySelector('#ar-button');
-        const message = document.querySelector('#message');
+  <script>
+    const model = document.querySelector('#model');
+    const arButton = document.querySelector('#ar-button');
+    const message = document.querySelector('#message');
 
-        model.addEventListener('load', () => {
-            message.classList.add('hidden');
-        });
+    model.addEventListener('load', () => {
+      message.textContent = 'Modelo carregado. Toque no botão para abrir em AR.';
+    });
 
-        arButton.addEventListener('click', () => {
-            if (model.canActivateAR) {
-                model.activateAR();
-            } else {
-                alert('AR só funciona em dispositivos móveis compatíveis (iPhone/Android).');
-            }
-        });
-    </script>
+    model.addEventListener('error', () => {
+      message.classList.remove('hidden');
+      message.textContent = 'Erro ao carregar o modelo 3D. Verifique se os arquivos object.glb e object.usdz estão no repositório.';
+    });
+
+    arButton.addEventListener('click', async () => {
+      try {
+        if (model.canActivateAR) {
+          await model.activateAR();
+        } else {
+          alert('AR só funciona em dispositivos móveis compatíveis. No iPhone, use Safari. No Android, use Chrome.');
+        }
+      } catch (e) {
+        alert('Não foi possível abrir o modo AR neste dispositivo.');
+      }
+    });
+  </script>
 </body>
 </html>
-
