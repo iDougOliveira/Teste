@@ -6,6 +6,8 @@
   <title>2GD - Realidade Aumentada</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
+
+    
     body {
       margin: 0;
       background: #000;
@@ -98,6 +100,21 @@
     .hidden {
       display: none !important;
     }
+
+    #machine-info {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  z-index: 1001;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 16px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  }
   </style>
 </head>
 <body>
@@ -106,6 +123,12 @@
     <div id="participants">
       Douglas Oliveira • Gabriel Guimarães • Gabriel Costa
     </div>
+    
+  </div>
+  <div id="machine-info">
+  <p><strong>Equipamento:</strong> Torno Mecânico</p>
+  <p><strong>ID:</strong> Torno 04</p>
+  <p><strong>Localização:</strong> Oficina de Tornos – SENAI</p>
   </div>
 
   <model-viewer
